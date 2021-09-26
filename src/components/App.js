@@ -1,5 +1,7 @@
-function App() {
-  return (
-    <div>App</div>
-  );
+import AppRouter from "./Router";
+
+function App(){
+  return <AppRouter />;
 }
+
+export default App;
