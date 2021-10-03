@@ -1,10 +1,8 @@
-// Import the functions you need from the SDKs you need
+// ** fbase.js를 수정하면 파이어베이스 설정이 제대로 적용되기 위해서 리액트 서버를 재시작해야 함 **
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import "firebase/compat/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -19,3 +17,4 @@ firebase.initializeApp(firebaseConfig);
 
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
+export const dbService = firebase.firestore();
