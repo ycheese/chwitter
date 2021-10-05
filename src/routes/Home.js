@@ -1,7 +1,8 @@
 import { dbService } from "fbase";
 import { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({userObj}) => {
+    //console.log(userObj);
     const [chweet, setChweet] = useState("");
     const [chweets, setChweets] = useState([]); // 파이어스토어에서 받은 데이터는 상태로 관리해야 화면에 보여줄 수 있음
 
@@ -25,6 +26,7 @@ const Home = () => {
         await dbService.collection("chweets").add({
             text : chweet,
             createdAt : Date.now(),
+            creatorId : userObj.uid,
         });
         setChweet("");
     };
