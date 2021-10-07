@@ -1,5 +1,6 @@
 import { dbService } from "fbase";
 import { useEffect, useState } from "react";
+import Chweet from "components/Chweet";
 
 const Home = ({userObj}) => {
     //console.log(userObj);
@@ -57,9 +58,7 @@ const Home = ({userObj}) => {
         </form>
         <div>
             {chweets.map((chweet) => (
-                <div key={chweets.id}>
-                    <h4>{chweet.text}</h4>
-                </div>
+                <Chweet key={chweet.id} chweetObj={chweet} isOwner={chweet.creatorId === userObj.uid}/>
             ))}
         </div>
         </>
