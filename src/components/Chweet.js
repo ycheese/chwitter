@@ -1,4 +1,4 @@
-import { dbService  } from "fbase";
+import { dbService, storageService } from "fbase";
 import { useState } from "react";
 
 const Chweet = ({ chweetObj, isOwner }) => {
@@ -8,11 +8,13 @@ const Chweet = ({ chweetObj, isOwner }) => {
     // 삭제
     const onDeleteClick = async () => {
         const ok = window.confirm("삭제하시겠습니까?");
-        console.log(ok);
+
         if(ok){
-            console.log(chweetObj.id);
-            const data = await dbService.doc(`chweets/${chweetObj.id}`).delete();
-            console.log(data);
+            await dbService.doc(`chweets/${chweetObj.id}`).delete();
+
+            if(chweetObj.attachmentUrl !== ""){
+                await storageService.refFromURL(chweetObj.attachmentUrl).delete();
+            }
         }
     };
 
@@ -46,6 +48,9 @@ const Chweet = ({ chweetObj, isOwner }) => {
             ) : (
                 <>
                     <h4>{chweetObj.text}</h4>
+                    {chweetObj.attachmentUrl && (
+                        <img src={chweetObj.attachmentUrl} width="50px" height="50px"/>
+                    )}
                     {isOwner && (
                         <>
                             <button onClick={onDeleteClick}>Delete Chweet</button>

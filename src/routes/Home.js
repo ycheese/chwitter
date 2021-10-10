@@ -1,6 +1,7 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { useEffect, useState } from "react";
 import Chweet from "components/Chweet";
+import {v4 as uuidv4} from "uuid";
 
 const Home = ({userObj}) => {
     //console.log(userObj);
@@ -35,12 +36,22 @@ const Home = ({userObj}) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        
+        let attachmentUrl = "";
+        if(attachment !== ""){  // 사진 파일 유무와 상관없이 레퍼런스를 생성하는 문제 방지
+            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+            const response = await attachmentRef.putString(attachment, "data_url");
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+        
         await dbService.collection("chweets").add({
             text : chweet,
             createdAt : Date.now(),
             creatorId : userObj.uid,
+            attachmentUrl,
         });
         setChweet("");
+        setAttachment("");
     };
 
     const onChange = (event) => {
