@@ -6,6 +6,7 @@ const Home = ({userObj}) => {
     //console.log(userObj);
     const [chweet, setChweet] = useState("");
     const [chweets, setChweets] = useState([]); // 파이어스토어에서 받은 데이터는 상태로 관리해야 화면에 보여줄 수 있음
+    const [attachment, setAttachment] = useState("");
 
     // 실시간 데이터베이스 도입 위해 주석 처리
     // get() 함수는 처음에 화면을 렌더링 할 때만 실행되므로 트윗을 작성할 때 마다 새로고침을 해줘야 함.
@@ -50,11 +51,37 @@ const Home = ({userObj}) => {
         setChweet(value);
     };
 
+    const onFileChange = (event) => {
+        //console.log(event.target.files);
+        const {
+            target : {files},
+        } = event;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            //console.log(finishedEvent);
+            const{
+                currentTarget : {result},
+            } = finishedEvent;
+            setAttachment(result);
+        }
+        reader.readAsDataURL(theFile);
+    }
+
+    const onClearAttachment = () => setAttachment("");
+
     return (
         <>
         <form onSubmit={onSubmit}>
             <input value={chweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120}/>
+            <input type="file" accept="image/*" onChange={onFileChange}/>
             <input type="submit" value="Chweet"/>
+            {attachment && (
+                <div>
+                    <img src={attachment} width="50px" height="50px"/>
+                    <button onClick={onClearAttachment}>Clear</button>
+                </div>
+            )}
         </form>
         <div>
             {chweets.map((chweet) => (
