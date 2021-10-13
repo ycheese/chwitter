@@ -11,8 +11,14 @@ function App(){
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if(user){
-        setIsLoggedIn(user);
-        setUserObj(user);
+        //setIsLoggedIn(user);
+        // state나 props의 내용물이 너무 많으면 변화를 인식하지 못함 => 리액트의 한계
+        // setUserObj({user}); 로 할 경우 userObj 내용이 너무 많다.
+        setUserObj({
+          uid : user.uid,
+          displayName : user.displayName,
+          updateProfile : (args) => user.updateProfile(args),
+        });
       }else{
         setIsLoggedIn(false);
       }
@@ -20,10 +26,21 @@ function App(){
     });
   }, []);
 
+  // Profile 컴포넌트에서 사용자 이름을 변경하는 경우 리렌더링을 위한 props update
+  const refreshUser = () => {
+    //setUserObj(authService.currentUser);
+    const user = authService.currentUser;
+    setUserObj({
+      uid : user.uid,
+      displayName : user.displayName,
+      updateProfile : (args) => user.updateProfile(args),
+    });
+  };
+
   return (
     <>
       {init ? (
-      <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/>
+      <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj}/>
        ) : (
          "initializing..."
        )}
