@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/chwitter/static/js/main.af0f17f6.chunk.js",
+    "main.js.map": "/chwitter/static/js/main.af0f17f6.chunk.js.map",
+    "runtime-main.js": "/chwitter/static/js/runtime-main.63f61d54.js",
+    "runtime-main.js.map": "/chwitter/static/js/runtime-main.63f61d54.js.map",
+    "static/js/2.b33a46b0.chunk.js": "/chwitter/static/js/2.b33a46b0.chunk.js",
+    "static/js/2.b33a46b0.chunk.js.map": "/chwitter/static/js/2.b33a46b0.chunk.js.map",
+    "index.html": "/chwitter/index.html",
+    "static/js/2.b33a46b0.chunk.js.LICENSE.txt": "/chwitter/static/js/2.b33a46b0.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.63f61d54.js",
+    "static/js/2.b33a46b0.chunk.js",
+    "static/js/main.af0f17f6.chunk.js"
+  ]
+}
