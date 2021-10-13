@@ -4,7 +4,6 @@ import {authService} from "fbase";
 
 function App(){
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   // useEffect : 특정한 시점에 실행되는 함수
   // firebase로부터 인증 완료 후 실행됨
@@ -20,7 +19,7 @@ function App(){
           updateProfile : (args) => user.updateProfile(args),
         });
       }else{
-        setIsLoggedIn(false);
+        setUserObj(false);  // 유저 없는 경우 false로 초기화
       }
       setInit(true);
     });

@@ -30,7 +30,6 @@ const Chweet = ({ chweetObj, isOwner }) => {
     // 수정
     const onSubmit = async (event) => {
         event.preventDefault();
-        //console.log(chweetObj.id, newChweet);
         await dbService.doc(`chweets/${chweetObj.id}`).update({text : newChweet});
         setEditing(false);
     };
