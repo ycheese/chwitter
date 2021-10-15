@@ -30,14 +30,14 @@ const Home = ({userObj}) => {
     }, []);
 
     return (
-        <>
-        <ChweetFactory userObj={userObj}/>
-        <div>
-            {chweets.map((chweet) => (
-                <Chweet key={chweet.id} chweetObj={chweet} isOwner={chweet.creatorId === userObj.uid}/>
-            ))}
+        <div className="container">
+            <ChweetFactory userObj={userObj}/>
+            <div style={{marginTop:30}}>
+                {chweets.map((chweet) => (
+                    <Chweet key={chweet.id} chweetObj={chweet} isOwner={chweet.creatorId === userObj.uid}/>
+                ))}
+            </div>
         </div>
-        </>
     );
 };
 
