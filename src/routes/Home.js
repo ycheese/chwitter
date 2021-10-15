@@ -20,7 +20,9 @@ const Home = ({userObj}) => {
     useEffect(() => {
         //getChweets();
         // get() 대신 onSnapshot() 함수를 써서 실시간 데이터베이스 도입 완료
-        dbService.collection("chweets").onSnapshot((snapShot) => {
+        // 트윗 정렬 추가
+        //dbService.collection("chweets").onSnapshot((snapShot) => {
+        dbService.collection("chweets").orderBy("createdAt", "desc").onSnapshot((snapShot) => {
             const newArray = snapShot.docs.map((document) => ({
                 id : document.id,
                 ...document.data(),

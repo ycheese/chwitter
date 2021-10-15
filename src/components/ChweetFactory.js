@@ -53,7 +53,11 @@ const ChweetFactory = ({userObj}) => {
             } = finishedEvent;
             setAttachment(result);
         }
-        reader.readAsDataURL(theFile);
+        // 파일 첨부 후 등록 취소 시 에러 수정 -> 파일이 있을 때만 파일을 읽도록
+        //reader.readAsDataURL(theFile);
+        if(Boolean(theFile)){
+            reader.readAsDataURL(theFile);
+        }
     }
 
     const onClearAttachment = () => setAttachment("");
